@@ -1,10 +1,8 @@
 class ArrayPricingService
   include HTTParty
-  base_uri 'http://openlibrary.org/'
   attr_accessor :result
 
   def call
-    self.new
     @result = get_result
     calculate_price
     @price
@@ -13,7 +11,7 @@ class ArrayPricingService
   private
 
   def get_result
-    @result ||= JSON.parse(self.class.get("http://openlibrary.org/search.json?q=the+lord+of+the+rings"))
+    @result ||= JSON.parse(self.class.get(Settings.lib_query_url))
   end
 
   def calculate_price

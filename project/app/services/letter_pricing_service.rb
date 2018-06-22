@@ -13,11 +13,15 @@ class LetterPricingService
   attr_writer :price
 
   def parse_page
-    @page ||= Nokogiri::HTML(open("http://time.com/"))
+    @page ||= Nokogiri::HTML(open(Settings.time_url))
   end
 
   def calculate_price
-    @price ||= @page.at('body').text.scan(/a/i).count.to_f/100
+    @price ||= a_occourance_count > 0 ? a_occourance_count.to_f/100 : nil
+  end
+
+  def a_occourance_count
+    @page.at('body').text.scan(/a/i).count
   end
 end
 

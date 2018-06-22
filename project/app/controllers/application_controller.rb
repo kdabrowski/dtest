@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :return_not_found
+  rescue_from Net::OpenTimeout, with: :service_timed_out
 
   def set_panel_provider
     @current_panel = PanelProvider.find_by!(code: Settings.current_panel)
@@ -13,4 +14,7 @@ class ApplicationController < ActionController::API
     render json: { error: "Resource not found" }, status: 404
   end
 
+  def service_timed_out
+    render json: { error: "Service timedout" }
+  end
 end
