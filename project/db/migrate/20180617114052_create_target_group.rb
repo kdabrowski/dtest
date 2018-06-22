@@ -9,8 +9,5 @@ class CreateTargetGroup < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-
-    add_foreign_key(:target_groups, :target_groups, column: :parent_id, primary_key: :id)
-    add_index(:target_groups, :parent_id, unique: true)
   end
 end

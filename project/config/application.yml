@@ -1,0 +1,2 @@
+defaults: &defaults
+  current_panel: <%= ENV["CURRENT_PANEL"] %>
